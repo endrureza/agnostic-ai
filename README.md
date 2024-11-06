@@ -8,10 +8,21 @@ This rest application is built in **Go** using the **Fiber** web framework to pr
 - **AI Agnosticism**: The API does not make assumptions about the type of AI model being used. It is up to the user to specify the model they wish to interact with.
 - **Support for multiple AI models**: The system can easily be extended to support additional models in the future.
 
-## Suppoorted AI Models:
-- **OpenAI GPT**: The system can interact with OpenAI's GPT model.
-- **Gemini**: The system can interact with Gemini's AI model.
-- **Claude**: The system can interact with Claude's AI model.
+## Supported AI Models:
+- **OpenAI GPT**
+  - [x] Text Generation
+  - [x] Image Generation
+  - [x] Audio Transcription
+- **Gemini**
+  - [ ] Text Generation
+  - [ ] Image Generation
+  - [ ] Audio Transcription
+- **Claude**
+  - [ ] Text Generation
+  - [ ] Image Generation
+  - [ ] Audio Transcription
+- **Ollama**
+  - [x] Text Generation
 
 ## Requirements:
 - **Go** (1.18+ recommended)
