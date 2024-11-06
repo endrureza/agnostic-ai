@@ -27,8 +27,8 @@ This rest application is built in **Go** using the **Fiber** web framework to pr
   - [x] Text Generation
   - [x] Audio Transcription
 - **Huggingface**
-  - [ ] Text Generation
-  - [ ] Image Generation
+  - [x] Text Generation
+  - [x] Image Generation
   - [ ] Audio Transcription
 
 ## Requirements
@@ -70,6 +70,7 @@ This endpoint to generate chat response.
 
 #### Request Body
 
+```json
 {
   "provider": "openai",
   "model": "gpt-4o-mini",
@@ -80,15 +81,19 @@ This endpoint to generate chat response.
     }
   ]
 }
+```
 
 #### Response
 
+```json
 {
   "text": "I'm fine thank you"
 }
+```
 
 #### Example Usage
 
+```bash
 curl -X POST <http://localhost:5000/chat> \
   -H "Content-Type: application/json" \
   -d '{
@@ -101,3 +106,4 @@ curl -X POST <http://localhost:5000/chat> \
       }
     ]
   }'
+```
