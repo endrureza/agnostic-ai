@@ -8,4 +8,5 @@ type ProvidersConfig struct {
 	OpenAI config.OpenAIConfig `json:"openai"`
 	Gemini config.GeminiConfig `json:"gemini"`
 	Claude config.ClaudeConfig `json:"claude"`
+	Ollama config.OllamaConfig `json:"ollama"`
 }

@@ -35,6 +35,9 @@ func main() {
 			URL: cfg.Claude.URL,
 			Key: cfg.Claude.Key,
 		},
+		Ollama: config.OllamaConfig{
+			URL: cfg.Ollama.URL,
+		},
 	}
 
 	providers.RegisterProviders(providerCfg)

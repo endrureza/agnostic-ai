@@ -27,11 +27,16 @@ type ClaudeConfig struct {
 	Key string `json:"key"`
 }
 
+type OllamaConfig struct {
+	URL string `json:"url"`
+}
+
 type Config struct {
 	App    AppConfig    `json:"app"`
 	OpenAI OpenAIConfig `json:"openai"`
 	Gemini GeminiConfig `json:"gemini"`
 	Claude ClaudeConfig `json:"claude"`
+	Ollama OllamaConfig `json:"ollama"`
 }
 
 func LoadConfig() (Config, error) {
@@ -58,6 +63,9 @@ func LoadConfig() (Config, error) {
 		Claude: ClaudeConfig{
 			URL: os.Getenv("CLAUDE_BASE_URL"),
 			Key: os.Getenv("CLAUDE_API_KEY"),
+		},
+		Ollama: OllamaConfig{
+			URL: os.Getenv("OLLAMA_BASE_URL"),
 		},
 	}
 

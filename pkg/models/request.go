@@ -1,5 +1,7 @@
 package models
 
+import "mime/multipart"
+
 type GenerateTextRequest struct {
 	Provider string `json:"provider"`
 	Model    string `json:"model"`
@@ -21,8 +23,8 @@ type GenerateImageRequest struct {
 }
 
 type TranscribedAudioRequest struct {
-	Provider string `json:"provider"`
-	Model    string `json:"model"`
-	File     string `json:"file"`
-	Path     string `json:"path"`
+	Provider string                `json:"provider"`
+	Model    string                `json:"model"`
+	File     *multipart.FileHeader `json:"file,omitempty"`
+	Path     string                `json:"path,omitempty"`
 }

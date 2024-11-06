@@ -59,14 +59,25 @@ func (h *AIHandler) GenerateImage(c *fiber.Ctx) error {
 func (h *AIHandler) TranscribedAudio(c *fiber.Ctx) error {
 	req := new(models.TranscribedAudioRequest)
 
+	// Parse other request fields (excluding file)
 	if err := c.BodyParser(req); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "Invalid request",
 		})
 	}
 
-	text, err := h.aiService.TranscribedAudio(*req)
+	// Retrieve the uploaded file
+	file, err := c.FormFile("file")
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid file upload",
+		})
+	}
 
+	req.File = file
+
+	// Pass req with file data to the service
+	text, err := h.aiService.TranscribedAudio(*req)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": err.Error(),

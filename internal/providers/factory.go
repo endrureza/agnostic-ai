@@ -12,6 +12,7 @@ func RegisterProviders(cfg models.ProvidersConfig) {
 	providers["openai"] = NewOpenAIProvider(cfg.OpenAI.Key, cfg.OpenAI.URL)
 	providers["gemini"] = NewGeminiProvider(cfg.Gemini.Key, cfg.Gemini.URL)
 	providers["claude"] = NewClaudeProvider(cfg.Claude.Key, cfg.Claude.URL)
+	providers["ollama"] = NewOllamaProvider(cfg.Ollama.URL)
 }
 
 func GetProvider(name string) (Provider, error) {

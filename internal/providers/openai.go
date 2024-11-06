@@ -3,6 +3,7 @@ package providers
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 
 	"github.com/endrureza/agnostic-ai/pkg/models"
 	"github.com/gofiber/fiber/v2"
@@ -99,14 +100,6 @@ func (p *OpenAIProvider) GenerateImage(req models.GenerateImageRequest) (models.
 
 	statusCode, body, errs := agent.Bytes()
 
-	var decodeBody map[string]interface{}
-
-	if err := json.Unmarshal(body, &decodeBody); err != nil {
-		return models.GenerateImageResponse{}, err
-	}
-
-	fmt.Println(decodeBody)
-
 	if len(errs) > 0 {
 		return models.GenerateImageResponse{}, errs[0]
 	}
@@ -129,16 +122,41 @@ func (p *OpenAIProvider) GenerateImage(req models.GenerateImageRequest) (models.
 }
 
 func (p *OpenAIProvider) TranscribedAudio(req models.TranscribedAudioRequest) (models.TranscribedAudioResponse, error) {
-	requestBody, err := json.Marshal(req)
+	src, err := req.File.Open()
 
 	if err != nil {
 		return models.TranscribedAudioResponse{}, err
 	}
 
+	defer src.Close()
+
+	fileContent, err := io.ReadAll(src)
+
+	if err != nil {
+		return models.TranscribedAudioResponse{}, err
+	}
+
+	newBody := models.OpenAIAudioRequest{
+		Model: req.Model,
+		File:  fileContent,
+	}
+
+	args := fiber.AcquireArgs()
+	args.Set("model", newBody.Model)
+
 	agent := fiber.Post(p.URL + "/audio/transcriptions")
 	agent.Set("Content-Type", "multipart/form-data")
 	agent.Set("Authorization", "Bearer "+p.Key)
-	agent.Body(requestBody)
+	agent.FileData(
+		&fiber.FormFile{
+			Name:      req.File.Filename,
+			Fieldname: "file",
+			Content:   newBody.File,
+		},
+	)
+	agent.MultipartForm(args)
+
+	fiber.ReleaseArgs(args)
 
 	statusCode, body, errs := agent.Bytes()
 
@@ -150,11 +168,15 @@ func (p *OpenAIProvider) TranscribedAudio(req models.TranscribedAudioRequest) (m
 		return models.TranscribedAudioResponse{}, fmt.Errorf("error: %d", statusCode)
 	}
 
-	res := new(models.TranscribedAudioResponse)
+	res := new(models.OpenAIAudioResponse)
 
 	if err := json.Unmarshal(body, &res); err != nil {
 		return models.TranscribedAudioResponse{}, err
 	}
 
-	return *res, nil
+	newRes := models.TranscribedAudioResponse{
+		Text: res.Text,
+	}
+
+	return newRes, nil
 }
