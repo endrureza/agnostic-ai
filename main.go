@@ -38,6 +38,14 @@ func main() {
 		Ollama: config.OllamaConfig{
 			URL: cfg.Ollama.URL,
 		},
+		Groq: config.GroqConfig{
+			URL: cfg.Groq.URL,
+			Key: cfg.Groq.Key,
+		},
+		HF: config.HFConfig{
+			URL: cfg.HF.URL,
+			Key: cfg.HF.Key,
+		},
 	}
 
 	providers.RegisterProviders(providerCfg)

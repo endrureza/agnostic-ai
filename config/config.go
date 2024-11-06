@@ -31,12 +31,24 @@ type OllamaConfig struct {
 	URL string `json:"url"`
 }
 
+type GroqConfig struct {
+	URL string `json:"url"`
+	Key string `json:"key"`
+}
+
+type HFConfig struct {
+	URL string `json:"url"`
+	Key string `json:"key"`
+}
+
 type Config struct {
 	App    AppConfig    `json:"app"`
 	OpenAI OpenAIConfig `json:"openai"`
 	Gemini GeminiConfig `json:"gemini"`
 	Claude ClaudeConfig `json:"claude"`
 	Ollama OllamaConfig `json:"ollama"`
+	Groq   GroqConfig   `json:"groq"`
+	HF     HFConfig     `json:"hf"`
 }
 
 func LoadConfig() (Config, error) {
@@ -66,6 +78,14 @@ func LoadConfig() (Config, error) {
 		},
 		Ollama: OllamaConfig{
 			URL: os.Getenv("OLLAMA_BASE_URL"),
+		},
+		Groq: GroqConfig{
+			URL: os.Getenv("GROQ_BASE_URL"),
+			Key: os.Getenv("GROQ_API_KEY"),
+		},
+		HF: HFConfig{
+			URL: os.Getenv("HUGGINGFACE_BASE_URL"),
+			Key: os.Getenv("HUGGINGFACE_API_KEY"),
 		},
 	}
 

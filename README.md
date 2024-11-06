@@ -21,10 +21,15 @@ This rest application is built in **Go** using the **Fiber** web framework to pr
   - [ ] Audio Transcription
 - **Claude**
   - [x] Text Generation
-  - [ ] Image Generation
-  - [ ] Audio Transcription
 - **Ollama**
   - [x] Text Generation
+- **Groq**
+  - [x] Text Generation
+  - [x] Audio Transcription
+- **Huggingface**
+  - [ ] Text Generation
+  - [ ] Image Generation
+  - [ ] Audio Transcription
 
 ## Requirements
 

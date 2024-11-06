@@ -9,4 +9,6 @@ type ProvidersConfig struct {
 	Gemini config.GeminiConfig `json:"gemini"`
 	Claude config.ClaudeConfig `json:"claude"`
 	Ollama config.OllamaConfig `json:"ollama"`
+	Groq   config.GroqConfig   `json:"groq"`
+	HF     config.HFConfig     `json:"hf"`
 }

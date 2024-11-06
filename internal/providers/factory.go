@@ -13,6 +13,8 @@ func RegisterProviders(cfg models.ProvidersConfig) {
 	providers["gemini"] = NewGeminiProvider(cfg.Gemini.Key, cfg.Gemini.URL)
 	providers["claude"] = NewClaudeProvider(cfg.Claude.Key, cfg.Claude.URL)
 	providers["ollama"] = NewOllamaProvider(cfg.Ollama.URL)
+	providers["groq"] = NewGroqProvider(cfg.Groq.Key, cfg.Groq.URL)
+	providers["hf"] = NewHFProvider(cfg.HF.Key, cfg.HF.URL)
 }
 
 func GetProvider(name string) (Provider, error) {

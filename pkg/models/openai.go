@@ -60,7 +60,7 @@ type OpenAIImageResponse struct {
 }
 
 type OpenAIAudioRequest struct {
-	File                   []byte   `json:"file,omitempty"`
+	File                   []byte   `json:"file"`
 	Model                  string   `json:"model"`
 	Language               string   `json:"language,omitempty"`
 	Prompt                 string   `json:"prompt,omitempty"`
